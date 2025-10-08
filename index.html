@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Recipe Finder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <h1>🍴 Smart Recipe Finder</h1>
+    <div class="nav-right">
+      <button id="viewFavsBtn">❤ Favorites</button>
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+  </nav>
+
+  <section class="search-section">
+    <input type="text" id="ingredientInput" placeholder="Enter ingredients (e.g. egg, tomato)" />
+    <select id="mealType">
+      <option value="">All</option>
+      <option value="breakfast">Breakfast</option>
+      <option value="lunch">Lunch</option>
+      <option value="dinner">Dinner</option>
+      <option value="snack">Snack</option>
+      <option value="dessert">Dessert</option>
+    </select>
+    <button id="searchBtn">Search Recipes</button>
+  </section>
+
+  <div id="results" class="results"></div>
+
+  <div id="recipeModal" class="modal">
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
