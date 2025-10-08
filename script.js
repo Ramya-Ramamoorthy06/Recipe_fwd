@@ -35,11 +35,14 @@ async function searchRecipes() {
   resultsContainer.innerHTML = '<div class="spinner"></div>';
 
   try {
-    let url = https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients)}&number=8&apiKey=${apiKey};
-    if(mealType.value) url += &type=${mealType.value};
+      const proxy = "https://api.allorigins.win/get?url=";
+      let apiUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients)}&number=8&apiKey=${apiKey}`;
+      if(mealType.value) apiUrl += `&type=${mealType.value}`;
 
-    const res = await fetch(url);
-    const data = await res.json();
+      const res = await fetch(proxy + encodeURIComponent(apiUrl));
+      const textData = await res.json();             // allorigins wraps response in "contents"
+      const data = JSON.parse(textData.contents);    // unwrap the actual API data
+
 
     if (!data.length) {
       displayOfflineRecipes();
