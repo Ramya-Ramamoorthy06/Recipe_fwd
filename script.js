@@ -32,7 +32,7 @@ async function searchRecipes() {
     return;
   }
 
-  resultsContainer.innerHTML = <div class="spinner"></div>;
+  resultsContainer.innerHTML = '<div class="spinner"></div>';
 
   try {
     let url = https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients)}&number=8&apiKey=${apiKey};
@@ -130,7 +130,7 @@ async function openRecipeModal(recipeId) {
   modalContent.innerHTML = <div class="spinner"></div>;
 
   try {
-    const res = await fetch(https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey});
+    const res = await fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`);
     const data = await res.json();
 
     modalContent.innerHTML = `
@@ -138,7 +138,7 @@ async function openRecipeModal(recipeId) {
       <h2>${data.title}</h2>
       <img src="${data.image}" style="width:100%;border-radius:10px;">
       <h3>Ingredients:</h3>
-      <ul>${data.extendedIngredients.map(i => <li>${i.original}</li>).join("")}</ul>
+      <ul>${data.extendedIngredients.map(i => `<li>${i.original}</li>`).join("")}</ul>
       <h3>Instructions:</h3>
       <p>${data.instructions || "No instructions available."}</p>
       <a href="${data.sourceUrl}" target="_blank" class="view-btn">View Full Recipe</a>
