@@ -32,17 +32,14 @@ async function searchRecipes() {
     return;
   }
 
-  resultsContainer.innerHTML = '<div class="spinner"></div>';
+  resultsContainer.innerHTML = `<div class="spinner"></div>` ;
 
   try {
-      const proxy = "https://api.allorigins.win/get?url=";
-      let apiUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients)}&number=8&apiKey=${apiKey}`;
-      if(mealType.value) apiUrl += `&type=${mealType.value}`;
+    let url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients)}&number=8&apiKey=${apiKey}`;
+    if(mealType.value) url += `&type=${mealType.value}`;
 
-      const res = await fetch(proxy + encodeURIComponent(apiUrl));
-      const textData = await res.json();             // allorigins wraps response in "contents"
-      const data = JSON.parse(textData.contents);    // unwrap the actual API data
-
+    const res = await fetch(url);
+    const data = await res.json();
 
     if (!data.length) {
       displayOfflineRecipes();
@@ -80,7 +77,7 @@ function displayRecipes(recipes) {
 }
 
 function displayOfflineRecipes() {
-  resultsContainer.innerHTML = <p>No online recipes found. Showing offline recipes:</p>;
+  resultsContainer.innerHTML = `<p>No online recipes found. Showing offline recipes:</p>`;
   displayRecipes(offlineRecipes);
 }
 
@@ -89,20 +86,20 @@ function addToFavorites(recipe) {
   if (!favorites.find(f => f.id === recipe.id)) {
     favorites.push(recipe);
     localStorage.setItem("favorites", JSON.stringify(favorites));
-    alert(${recipe.title} added to favorites!);
+    alert(`${recipe.title} added to favorites!`);
   } else {
-    alert(${recipe.title} is already in favorites!);
+    alert(`${recipe.title} is already in favorites!`);
   }
 }
 
 function showFavorites() {
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
   if (!favorites.length) {
-    resultsContainer.innerHTML = <p>No favorites saved yet.</p>;
+    resultsContainer.innerHTML = `<p>No favorites saved yet.</p>`;
     return;
   }
 
-  resultsContainer.innerHTML = <p>Your Favorite Recipes:</p>;
+  resultsContainer.innerHTML = `<p>Your Favorite Recipes:</p>`;
   favorites.forEach(r => {
     const card = document.createElement("div");
     card.className = "recipe-card";
@@ -130,7 +127,7 @@ function removeFavorite(id) {
 
 async function openRecipeModal(recipeId) {
   modal.style.display = "flex";
-  modalContent.innerHTML = <div class="spinner"></div>;
+  modalContent.innerHTML = `<div class="spinner"></div>`;
 
   try {
     const res = await fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`);
@@ -148,7 +145,7 @@ async function openRecipeModal(recipeId) {
     `;
     document.querySelector(".close-btn").addEventListener("click", closeModal);
   } catch {
-    modalContent.innerHTML = <p>Failed to load recipe details.</p>;
+    modalContent.innerHTML = `<p>Failed to load recipe details.</p>`;
   }
 }
 
